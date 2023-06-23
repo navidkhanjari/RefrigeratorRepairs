@@ -1,31 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using RefrigeratorRepairs.MODEL.Context;
+using RefrigeratorRepairs.UI.ViewModels.SiteSetting;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace RefrigeratorRepairs.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly RRContext _DbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(RRContext DbContext)
         {
-            _logger = logger;
+            _DbContext = DbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            var model = _DbContext.SiteSettings.FirstOrDefault();
+            SiteSettingDetailViewModel SiteSettingDetailViewModel = new SiteSettingDetailViewModel()
+            {
+                TextInBackground = model.TextInBackground,
+                BackgrondImageName = model.Background,
+                Description = model.Description,
+                PhoneNumber = model.PhoneNumber
+            };
 
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(SiteSettingDetailViewModel);
         }
 
     }

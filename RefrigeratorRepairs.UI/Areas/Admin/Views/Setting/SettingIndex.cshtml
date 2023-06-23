@@ -1,0 +1,45 @@
+﻿@model RefrigeratorRepairs.UI.ViewModels.SiteSetting.SiteSettingDetailViewModel
+@using RefrigeratorRepairs.UI.Utilities;
+@{
+    ViewData["Title"] = "تنظیمات سایت";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["selected"] = "Setting_Index";
+}
+<h3>@ViewData["Title"]</h3>
+
+<div class="card">
+    <div class="card-content">
+        <div class="card-body">
+            <div class="col-12">
+                <table class="table table-borderless line-height-2">
+                    <tbody>
+                        <tr>
+                            <td>تصویر اصلی :</td>
+                            <td class="users-view-username"><img src="@FilePath.BackgroundThumbImagePath@Model.BackgrondImageName" /></td>
+                        </tr>
+                        <tr>
+                            <td>متن روی تصویر اصلی :</td>
+                            <td class="users-view-username">@Model.TextInBackground</td>
+                        </tr>
+                        <tr>
+                            <td> توضیحات کوتاه پایین سایت:</td>
+                            <td class="users-view-name">@Model.Description</td>
+                        </tr>
+                        <tr>
+                            <td>شماره تماس  :</td>
+                            <td class="users-view-email">@Model.PhoneNumber</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="card-footer p-0">
+    <span class=" float-sm-right d-flex flex-sm-row flex-column justify-content-end">
+        <a href="/Admin/Setting/Edit/@Model.Id" class="btn btn-light-warning mr-0 my-1 my-sm-0 mr-sm-1 text-white">ویرایش</a>
+    </span>
+</div>
+
+

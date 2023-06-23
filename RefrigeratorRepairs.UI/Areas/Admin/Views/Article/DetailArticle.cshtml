@@ -1,0 +1,79 @@
+﻿@model RefrigeratorRepairs.UI.ViewModels.Articles.DetailArticleViewModel
+@using RefrigeratorRepairs.UI.Utilities;
+@{
+    ViewData["Title"] = "جزییات مقاله";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["selected"] = "Article_";
+
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<div class="card">
+    <div class="card-content">
+        <div class="card-body">
+            <div class="col-12">
+                <table class="table table-borderless line-height-2">
+                    <tbody>
+                        <tr>
+                            <td>تصویر :</td>
+                            <td class="users-view-username"><img src="@FilePath.ArticleThumbPath@Model.ImageName" /></td>
+                        </tr>
+                        <tr>
+                            <td>عنوان :</td>
+                            <td class="users-view-username">@Model.Title</td>
+                        </tr>
+                        <tr>
+                            <td>توضیحات کوتاه :</td>
+                            <td class="users-view-name">@Model.ShortDescription</td>
+                        </tr>
+                        <tr>
+                            <td>Meta Description :</td>
+                            <td class="users-view-email">@Model.MetaDescription</td>
+                        </tr>
+                        <tr>
+                            <td>Slug :</td>
+                            <td>@Model.Slug</td>
+                        </tr>
+                        <tr>
+                            <td>تاریخ ثبت :</td>
+                            <td>@Model.CratedDate.ToShamsi()</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="card-footer p-0">
+    <span class=" float-sm-right d-flex flex-sm-row flex-column justify-content-end">
+        <a href="/Admin/Article/Edit/@Model.Id" class="btn btn-light-warning mr-0 my-1 my-sm-0 mr-sm-1 text-white">ویرایش</a>
+        <form method="post" id="Delete" action="/Admin/Article/Delete/@Model.Id">
+            <a onclick="functionConfirm(this)" class="btn btn-danger mr-0 my-1 my-sm-0 mr-sm-1 text-white">حذف</a>
+        </form>
+    </span>
+</div>
+
+@section Scripts{ 
+<script>
+    function functionConfirm(event) {
+        Swal.fire({
+            title: 'آیا از حذف اطمینان دارید؟',
+            text: "درصورت حذف امکان بازگشت این آیتم وجود ندارد",
+            icon: "info",
+            showCancelButton: true,
+            cancelButtonText: 'خیر',
+            cancelButtonClass: 'btn btn-danger',
+            showConfirmButton: true,
+            confirmButtonText: 'بله',
+            confirmButtonClass: 'btn btn-success'
+        }).then((result) => {
+            if (result.value) {
+                $("#Delete").submit();
+            }
+        });
+        return false;
+    }
+</script>
+}

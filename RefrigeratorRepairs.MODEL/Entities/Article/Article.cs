@@ -5,7 +5,7 @@ namespace RefrigeratorRepairs.MODEL.Entities.Article
     public class Article : BaseEntity
     {
         #region (Fields)
-        public String ImageName { get; set; }
+        public string ImageName { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string ShortDescription { get; set; }

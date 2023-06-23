@@ -1,0 +1,56 @@
+﻿@model RefrigeratorRepairs.UI.ViewModels.SiteSetting.EditSettingViewModel
+@{
+    ViewData["Title"] = "ویرایش تنظیمات";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<h3> @ViewData["Title"] </h3>
+<form class="card" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">متن روی صفحه</label>
+                    <input type="text" class="form-control" asp-for="TextInBackground">
+                </div>
+                <span asp-validation-for="TextInBackground" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">توضیحات پایین سایت</label>
+                    <input type="text" class="form-control" asp-for="Description">
+                </div>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">شماره تماس</label>
+                    <input type="text" class="form-control" asp-for="PhoneNumber">
+                </div>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-12">
+                <label for="basicInput">تصویر اصلی</label>
+                <input type="file" asp-for="BackgrondImage">
+                <span asp-validation-for="BackgrondImage" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+                <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">ذخیره تغییرات</button>
+                <button type="reset" class="btn btn-light">انصراف</button>
+            </div>
+
+        </div>
+    </div>
+</form>
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

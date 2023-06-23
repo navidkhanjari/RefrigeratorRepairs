@@ -3,11 +3,14 @@
 @{
     ViewData["Title"] = "ویرایش مقاله";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["selected"] = "Article_";
+
 }
 
 <h3>@ViewData["title"]</h3>
 
 <form class="card" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">

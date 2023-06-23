@@ -58,6 +58,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
                 return View(AddArticleViewModel);
             }
+
             try
             {
 
@@ -139,6 +140,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
                 return RedirectToAction("IndexArticle");
             }
+
             if (EditArticleViewModel.Image == null)
             {
                 Article.Title = EditArticleViewModel.Title;
@@ -148,7 +150,8 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 Article.MetaDescription = EditArticleViewModel.MetaDescription;
                 Article.Description = EditArticleViewModel.Description;
             }
-            else
+
+            try
             {
                 // delete old image 
                 var imagePath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleUploadPath, Article.ImageName);
@@ -171,10 +174,8 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
                 EditArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 150, 150, FilePath.ArticleThumbUploadPath);
 
-            }
 
-            try
-            {
+            
                 _DbContext.Update(Article);
 
                 _DbContext.SaveChanges();
@@ -193,7 +194,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
         #endregion
 
         #region (Delete)
-        [HttpPost("Admin/Artcile/Delete/{Id?}")]
+        [HttpPost("Admin/Article/Delete/{Id?}")]
         public IActionResult DeleteArticle(int Id)
         {
             var article = _DbContext.Articles.Where(A => A.Id == Id).SingleOrDefault();
@@ -208,6 +209,16 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
             {
                 _DbContext.Articles.Remove(article);
                 _DbContext.SaveChanges();
+
+                // delete  image 
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleUploadPath, article.ImageName);
+                var imageThumbPath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleThumbUploadPath, article.ImageName);
+
+                if (System.IO.File.Exists(imagePath) && System.IO.File.Exists(imageThumbPath))
+                {
+                    System.IO.File.Delete(imageThumbPath);
+                    System.IO.File.Delete(imagePath);
+                }
             }
             catch
             {
@@ -234,7 +245,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 return RedirectToAction("IndexArticle");
             }
 
-            EditArticleViewModel EditArticleViewModel = new EditArticleViewModel()
+            DetailArticleViewModel DetailArticleViewModel = new DetailArticleViewModel()
             {
                 Id = Article.Id,
                 MetaDescription = Article.MetaDescription,
@@ -242,11 +253,11 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 ShortDescription = Article.ShortDescription,
                 Slug = Article.Slug,
                 Title = Article.Title,
-                Description = Article.Description,
                 ImageName = Article.ImageName,
+                CratedDate = Article.CreatedDate,
             };
 
-            return View(EditArticleViewModel);
+            return View(DetailArticleViewModel);
         }
         #endregion
         #endregion

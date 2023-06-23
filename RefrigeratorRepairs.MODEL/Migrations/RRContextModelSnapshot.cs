@@ -55,6 +55,36 @@ namespace RefrigeratorRepairs.MODEL.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("RefrigeratorRepairs.MODEL.Entities.Settings.SiteSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AboutUs")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Background")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TextInBackground")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WhatWeDo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteSettings");
+                });
+
             modelBuilder.Entity("RefrigeratorRepairs.MODEL.Entities.User.Permission", b =>
                 {
                     b.Property<int>("Id")

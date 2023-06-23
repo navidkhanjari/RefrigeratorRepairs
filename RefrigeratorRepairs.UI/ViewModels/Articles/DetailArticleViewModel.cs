@@ -1,12 +1,14 @@
-﻿namespace RefrigeratorRepairs.UI.ViewModels.Articles
+﻿using System;
+
+namespace RefrigeratorRepairs.UI.ViewModels.Articles
 {
     public class DetailArticleViewModel
     {
+        #region (Fields)
         public int Id { get; set; }
+        public string ImageName { get; set; }
 
         public string Title { get; set; }
-
-        public string Description { get; set; }
 
         public string ShortDescription { get; set; }
 
@@ -16,6 +18,8 @@
 
         public string Slug { get; set; }
 
-        public string ImageName { get; set; }
+        public DateTime CratedDate { get; set; }
+
+        #endregion
     }
 }

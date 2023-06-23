@@ -18,6 +18,8 @@ namespace RefrigeratorRepairs.MODEL.Context
         public DbSet<Entities.User.RolePermission> RolePermissions { get; set; }
         public DbSet<Entities.User.Role> Roles { get; set; }
         public DbSet<Entities.User.Permission> Permissions { get; set; }
+
+        public DbSet<Entities.Settings.SiteSetting> SiteSettings { get; set; }
         #endregion
     }
 }

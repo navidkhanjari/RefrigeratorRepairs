@@ -19,6 +19,18 @@ namespace RefrigeratorRepairs.UI.Utilities
 
         #endregion
 
+        #region Site Setting
+        public static readonly string LogoImagePath = "/images/setting/logo/";
+        public static readonly string LogoImageUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/setting/logo/");
+       
+        public static readonly string BackgroundImagePath = "/images/setting/background/origin/";
+        public static readonly string BackgroundImageUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/setting/background/origin/");
+        public static readonly string BackgroundThumbImagePath = "/images/setting/background/thumb/";
+        public static readonly string BackgroundImageThumbUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/setting/background/thumb/");
+
+
+        #endregion
+
         #region MyImages Ckeditor
         public static readonly string MyImagesPath = "/MyImages/";
         public static readonly string MyImagesUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/MyImages/");
