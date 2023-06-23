@@ -1,0 +1,118 @@
+﻿@model RefrigeratorRepairs.UI.ViewModels.Articles.ArticleFilterViewModel
+@using RefrigeratorRepairs.UI.Utilities;
+@{
+    ViewData["Title"] = "مدیریت مقالات";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h3>@ViewData["Title"]</h3>
+<a href="/Admin/Article/Add" class="btn btn-success mb-2">افزودن مقاله جدید</a>
+<section class="users-list-wrapper">
+    <div class="users-list-filter px-1">
+        <form method="get">
+            <div class="row border rounded py-2 mb-2">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label for="users-list-verified">عنوان</label>
+                    <input type="text" class="form-control" asp-for="Title" />
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
+                    <button type="reset" class="btn btn-info btn-block glow users-list-clear mb-0 mt-75">خالی </button>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
+                    <button type="submit" class="btn btn-primary btn-block glow users-list-clear mb-0 mt-75">جستجو</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive card card-body p-0">
+        <table class="table table-bordered mb-0">
+            <thead>
+                <tr>
+                    <th width="25%">تصویر</th>
+                    <th width="25%">عنوان</th>
+                    <th width="25%">اسلاگ</th>
+                    <th width="25%">عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Article in Model.Entities)
+                {
+                    <tr>
+                        <td>
+                            <img src="@FilePath.ArticleThumbPath@Article.ImageName" />
+                        </td>
+                        <td>@Article.Title</td>
+                        <td>@Article.Slug</td>
+                        <td>
+                            <a href="/Admin/Article/Edit/@Article.Id" class="btn btn-warning btn-sm">ویرایش</a>
+                            <a href="/Admin/Article/Detail/@Article.Id" class="btn btn-primary btn-sm">جزییات</a>
+                        </td>
+                    </tr>
+                }
+                @if (Model.Entities.Any() == false)
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">موردی برای نمایش وجود ندارد</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-borderless justify-content-center mt-2">
+                @if (Model.Page > 1)
+                {
+                    <li class="page-item previous">
+                        <a onclick="changePage(@(Model.Page-1))" class="page-link" href="#">
+                            <i class="bx bx-chevron-right"></i>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item previous disabled">
+                        <a class="page-link" href="#">
+                            <i class="bx bx-chevron-right"></i>
+                        </a>
+                    </li>
+                }
+                @for (int i = Model.StartPage; i < Model.EndPage; i++)
+                {
+                    <li class="@(i==Model.Page?"page-item active":"page-item")" onclick="changePage(@(i))"><a class="page-link">@i</a></li>
+                }
+                @if (Model.Page < Model.EndPage)
+                {
+                    <li class="page-item next" >
+                        <a onclick="changePage(@(Model.Page+1))" class="page-link" href="#">
+                            <i class="bx bx-chevron-left"></i>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item next disabled">
+                        <a  class="page-link" href="#">
+                            <i class="bx bx-chevron-left"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</section>
+@section Scripts{
+    <script>
+        function changePage(Page)
+        {
+            var url = new URL(window.location.href);
+            var SerachParams = url.searchParams;
+            //Change PageId
+            SerachParams.set('Page', Page);
+            url.search = SerachParams.toString();
+
+            //new Url String
+            var newUrlString = url.toString();
+            window.location.replace(newUrlString);
+        }
+    </script>
+}

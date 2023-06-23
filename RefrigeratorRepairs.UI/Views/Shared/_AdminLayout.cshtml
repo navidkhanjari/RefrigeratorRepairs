@@ -1,0 +1,66 @@
+﻿
+<!DOCTYPE html>
+<html class="loading" lang="fa" data-textdirection="rtl" dir="rtl">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>@ViewData["Title"]</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/Admin/assets/images/ico/favicon.ico">
+    <meta name="theme-color" content="#5A8DEE">
+
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/vendors/css/charts/apexcharts.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/vendors/css/extensions/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/css/themes/semi-dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="/Admin/assets/css/pages/dashboard-ecommerce.css">
+
+</head>
+
+<body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-sticky footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
+    <div class="header-navbar-shadow"></div>
+    <partial name="Admin/MainMenu" />
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix mb-0">
+            <span class="float-left d-inline-block">ارائه شده در وب‌سایت <a href="https://www.rtl-theme.com" target="_blank">راست‌چین</a></span><span class="float-right d-sm-inline-block d-none">ساخته شده با<i class="bx bxs-heart pink ml-50 font-small-3"></i></span>
+            <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="bx bx-up-arrow-alt"></i></button>
+        </p>
+    </footer>
+
+    <script src="/Admin/assets/vendors/js/vendors.min.js"></script>
+    <script src="/Admin/assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.min.js"></script>
+    <script src="/Admin/assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
+    <script src="/Admin/assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
+    <script src="/Admin/assets/vendors/js/charts/apexcharts.min.js"></script>
+    <script src="/Admin/assets/vendors/js/extensions/swiper.min.js"></script>
+    <script src="/Admin/assets/js/scripts/configs/vertical-menu-dark.js"></script>
+    <script src="/Admin/assets/js/core/app-menu.js"></script>
+    <script src="/Admin/assets/js/core/app.js"></script>
+    <script src="/Admin/assets/js/scripts/components.js"></script>
+    <script src="/Admin/assets/js/scripts/footer.js"></script>
+    <script src="/Admin/assets/js/scripts/customizer.js"></script>
+    <script src="/Admin/assets/js/scripts/pages/dashboard-ecommerce.js"></script>
+    <script src="~/SweetAlerts/SweetAlert.js"></script>
+    <script src="~/SweetAlerts/SweetAlertv11.7.5.js"></script>
+    <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", false)
+
+
+</body>
+</html>

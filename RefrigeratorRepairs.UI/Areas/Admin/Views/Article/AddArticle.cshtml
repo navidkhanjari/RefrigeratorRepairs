@@ -1,0 +1,75 @@
+﻿@model RefrigeratorRepairs.UI.ViewModels.Articles.AddArticleViewModel
+@{
+    ViewData["Title"] = "افزودن مقاله جدید";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>@ViewData["title"]</h3>
+
+<form class="card" method="post" enctype="multipart/form-data">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">عنوان</label>
+                    <input type="text" class="form-control" asp-for="Title">
+                </div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">توضیح کوتاه</label>
+                    <input type="text" class="form-control" asp-for="ShortDescription">
+                </div>
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-12">
+                @Html.EditorFor(d => d.Description)
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">Meta description</label>
+                    <input type="text" class="form-control" asp-for="MetaDescription">
+                </div>
+                <span asp-validation-for="MetaDescription" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">Meta Keyword</label>
+                    <input type="text" class="form-control" asp-for="MetaKeyword">
+                </div>
+                <span asp-validation-for="MetaKeyword" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput">Slug </label>
+                    <input type="text" class="form-control" asp-for="Slug">
+                </div>
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label for="basicInput">تصویر</label>
+                <input type="file" asp-for="Image">
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+
+            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+                <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">ذخیره تغییرات</button>
+                <button type="reset" class="btn btn-light">انصراف</button>
+            </div>
+
+        </div>
+    </div>
+</form>
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
