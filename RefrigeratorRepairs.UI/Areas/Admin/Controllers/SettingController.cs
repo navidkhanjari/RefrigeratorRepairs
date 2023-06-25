@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RefrigeratorRepairs.MODEL.Context;
-using RefrigeratorRepairs.MODEL.Entities.Settings;
 using RefrigeratorRepairs.UI.Utilities;
 using RefrigeratorRepairs.UI.ViewModels.SiteSetting;
 using System;
@@ -11,6 +11,7 @@ using System.Linq;
 namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class SettingController : Controller
     {
         #region (Constructor)
@@ -21,11 +22,19 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
         }
         #endregion
 
+        #region (Methods)
         #region (Index)
         [HttpGet("Admin/Settings")]
         public IActionResult SettingIndex()
         {
             var setting = _DbContext.SiteSettings.FirstOrDefault();
+
+            if(setting == null)
+            {
+                ErrorAlert("خطایی رخ داد!");
+
+                return RedirectToAction("IndexAdmin");
+            }
 
             SiteSettingDetailViewModel model = new SiteSettingDetailViewModel()
             {
@@ -83,7 +92,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                     setting.Description = EditSettingViewModel.Description;
                 }
 
-                if (EditSettingViewModel.BackgrondImage != null )
+                if (EditSettingViewModel.BackgrondImage != null)
                 {
                     // delete old image 
                     var imagePath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.BackgroundImageUploadPath, setting.Background);
@@ -145,6 +154,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
             HttpContext.Response.Cookies.Append("SystemAlert", Model);
         }
+        #endregion
         #endregion
     }
 }

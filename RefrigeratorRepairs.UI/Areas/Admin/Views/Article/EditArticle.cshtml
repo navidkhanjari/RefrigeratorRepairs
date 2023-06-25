@@ -68,6 +68,13 @@
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
 
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="basicInput"> Alt تصویر </label>
+                    <input type="text" class="form-control" asp-for="Slug">
+                </div>
+                <span asp-validation-for="ImageAlt" class="text-danger"></span>
+            </div>
 
             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
                 <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">ذخیره تغییرات</button>

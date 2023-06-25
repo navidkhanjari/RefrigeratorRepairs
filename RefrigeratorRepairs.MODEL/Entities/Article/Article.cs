@@ -6,6 +6,7 @@ namespace RefrigeratorRepairs.MODEL.Entities.Article
     {
         #region (Fields)
         public string ImageName { get; set; }
+        public string ImageAlt { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string ShortDescription { get; set; }

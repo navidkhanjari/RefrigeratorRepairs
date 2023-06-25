@@ -9,6 +9,9 @@ namespace RefrigeratorRepairs.UI.ViewModels.Articles
         public int Id { get; set; }
         public IFormFile Image { get; set; }
 
+        [Required(ErrorMessage = "وارد کردن این فیلد اجباری است!")]
+        public string ImageAlt { get; set; }
+
         [MaxLength(50, ErrorMessage = "عنوان نباید بیشتر از 50 کاراکتر باشد")]
         [Required(ErrorMessage = "وارد کردن این فیلد اجباری است!")]
         public string Title { get; set; }

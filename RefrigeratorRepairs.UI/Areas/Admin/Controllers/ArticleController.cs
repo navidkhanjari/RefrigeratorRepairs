@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using RefrigeratorRepairs.MODEL.Context;
-using RefrigeratorRepairs.MODEL.Entities.Article;
 using RefrigeratorRepairs.UI.Utilities;
 using RefrigeratorRepairs.UI.ViewModels.Articles;
 using System;
@@ -12,9 +12,9 @@ using System.Linq;
 namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ArticleController : Controller
     {
-
         #region (Constructor)
         private readonly RRContext _DbContext;
         public ArticleController(RRContext DbContext)
@@ -54,14 +54,16 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
             if (Articles != null)
             {
+                #region (Slug Exist)
                 this.ErrorAlert("اسلاگ تکراری است!");
 
                 return View(AddArticleViewModel);
+                #endregion
             }
 
             try
             {
-
+                #region (Fill Fields)
                 MODEL.Entities.Article.Article Article = new MODEL.Entities.Article.Article()
                 {
                     Title = AddArticleViewModel.Title,
@@ -70,11 +72,15 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                     Slug = AddArticleViewModel.Slug.ToSlug(),
                     MetaDescription = AddArticleViewModel.MetaDescription,
                     MetaKeyword = AddArticleViewModel.MetaKeyword,
+                    ImageAlt = AddArticleViewModel.ImageAlt,
                     CreatedDate = DateTime.Now,
                     ImageName = Guid.NewGuid().ToString("N") + Path.GetExtension(AddArticleViewModel.Image.FileName),
                 };
 
+                #region (CREATE NEW IMAGE)
                 AddArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 150, 150, FilePath.ArticleThumbUploadPath);
+                #endregion
+                #endregion
 
                 #region (Save)
                 _DbContext.Articles.Add(Article);
@@ -93,7 +99,6 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 return RedirectToAction("IndexArticle");
                 #endregion
             }
-      
         }
         #endregion
         #endregion
@@ -149,6 +154,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 Article.MetaKeyword = EditArticleViewModel.MetaKeyword;
                 Article.MetaDescription = EditArticleViewModel.MetaDescription;
                 Article.Description = EditArticleViewModel.Description;
+                Article.ImageAlt = EditArticleViewModel.ImageAlt;
             }
 
             try
@@ -169,13 +175,15 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 Article.MetaKeyword = EditArticleViewModel.MetaKeyword;
                 Article.MetaDescription = EditArticleViewModel.MetaDescription;
                 Article.Description = EditArticleViewModel.Description;
+                Article.ImageAlt = EditArticleViewModel.ImageAlt;
+
 
                 Article.ImageName = Guid.NewGuid().ToString("N") + Path.GetExtension(EditArticleViewModel.Image.FileName);
 
                 EditArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 150, 150, FilePath.ArticleThumbUploadPath);
 
 
-            
+
                 _DbContext.Update(Article);
 
                 _DbContext.SaveChanges();

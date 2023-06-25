@@ -1,5 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "صفحه مورد نظر یافت نشد";
 }
+
+<div class="back-to-home rounded d-none d-sm-block">
+    <a href="/" class="btn btn-icon btn-soft-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home icons"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a>
+</div>
+
+<section class="bg-home d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-12 text-center">
+                <img src="/Site/images/404.svg" class="img-fluid" alt="404">
+                <div class="text-uppercase mt-4 display-3">وای نه!</div>
+                <div class="text-capitalize text-dark mb-4 error-page">صفحه ای یافت نشد</div>
+                <p class="text-muted para-desc mx-auto">ممکن است صفحه ای که به دنبال آن میگردید حذف شده باشد و یا آدرس آن را به درستی وارد نکرده باشید</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="/" class="btn btn-primary mt-4 ms-2">برو صفحه اصلی </a>
+            </div>
+        </div>
+    </div>
+</section>

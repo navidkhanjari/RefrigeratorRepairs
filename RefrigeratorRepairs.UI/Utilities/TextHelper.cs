@@ -1,4 +1,6 @@
-﻿namespace RefrigeratorRepairs.UI.Utilities
+﻿using System.Text.RegularExpressions;
+
+namespace RefrigeratorRepairs.UI.Utilities
 {
     public static class TextHelper
     {
@@ -22,5 +24,10 @@
                 .Replace(@"\", "")
                 .Replace("/", "");
         }
+    }
+    public static string ConvertHtmlToText(this string text)
+    {
+        return Regex.Replace(text, "<.*?>", " ")
+            .Replace(":&nbsp;", " ");
     }
 }

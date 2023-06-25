@@ -1,0 +1,132 @@
+﻿@model RefrigeratorRepairs.UI.ViewModels.Articles.ArticleFilterViewModel
+@using RefrigeratorRepairs.UI.Utilities
+@{
+    ViewData["Title"] = "لیست مقالات";
+}
+@await Component.InvokeAsync("SiteHeader")
+
+<section class="bg-half d-table w-100" style="background: url('/images/Default/articles-bg.jpg') center center;">
+    <div class="bg-overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 text-center">
+                <div class="page-next-level">
+                    <h3 class="title text-white title-dark">@ViewData["Title"]</h3>
+                    <div class="page-next">
+                        <nav aria-label="breadcrumb" class="d-inline-block">
+                            <ul class="breadcrumb bg-white rounded shadow mb-0">
+                                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">کوین گلس </a></li>
+                                <li class="breadcrumb-item"><a asp-controller="articles" asp-action="Index">مقالات </a></li>
+                                <li class="breadcrumb-item active" aria-current="page">لیست مقالات</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="position-relative">
+    <div class="shape overflow-hidden text-white">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 mb-4 pb-2">
+                <div class="component-wrapper rounded shadow">
+                    <div class="p-4">
+                        <div class="subcribe-form">
+                            <form asp-controller="Articles" asp-action="Index" method="get">
+                                <input type="hidden" asp-for="Page" />
+                                <input asp-for="Title" class="form-control rounded-pill shadow" placeholder="عنوان مورد نظر..." aria-describedby="newssubscribebtn">
+                                <button type="submit" class="btn btn-pills btn-primary">جستجو</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="row">
+
+            @if (Model.Entities.Any())
+            {
+                @foreach (var Article in Model.Entities)
+                {
+                    <div class="col-lg-6 col-12 mb-4 pb-2">
+                        <div class="card blog rounded border-0 shadow overflow-hidden">
+                            <div class="row align-items-center g-0">
+                                <div class="col-md-6">
+                                    <img src="@(FilePath.ArticlePath + Article.ImageName)" class="img-fluid" alt="@Article.ImageAlt">
+                                    <div class="overlay bg-dark"></div>
+                                    <div class="author">
+                                        <small class="text-light user d-block"><i class="uil uil-user"></i> تعمیرات یخچال</small>
+                                        <small class="text-light date"><i class="uil uil-calendar-alt"></i>@Article.CreatedDate.ToShamsi()</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card-body content">
+                                        <h5><a class="card-title title text-dark">@Article.Title</a></h5>
+                                        <p class="text-muted mb-0">@Article.ShortDescription</p>
+                                        <div class="post-meta d-flex justify-content-between mt-3">
+                                            <ul class="list-unstyled mb-0">
+                                            </ul>
+                                            <a asp-controller="Articles" asp-action="NewsArticle" asp-route-slug="@Article.Slug" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="col-12">
+                    <ul class="pagination justify-content-center mb-0">
+                        @if (Model.Page > 1)
+                        {
+                            <li class="page-item"><a class="page-link" onclick="changePage(@(Model.Page-1))" aria-label="Previous">قبلی </a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled"><a class="page-link " aria-label="Previous">قبلی </a></li>
+
+                        }
+                        @for (int i = Model.StartPage; i < Model.EndPage; i++)
+                        {
+                            <li class="@(i==Model.Page?"page-item active":"page-item")" onclick="changePage(@(i))"><a class="page-link">@i</a></li>
+                        }
+                        @if (Model.Page < Model.EndPage)
+                        {
+
+                            <li onclick="changePage(@(Model.Page +1))" class="page-item"><a class="page-link" aria-label="Next">بعدی </a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item disabled"><a class="page-link" aria-label="Next">بعدی </a></li>
+
+                        }
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <h5 class="title mb-4 text-center text-dark">موردی برای نمایش یافت نشد!</h5>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@await Component.InvokeAsync("SiteFooter")
+@section Scripts {
+}

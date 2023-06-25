@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RefrigeratorRepairs.MODEL.Context;
-using RefrigeratorRepairs.MODEL.Entities.User;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 
 namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class HomeController : Controller
     {
         #region (Costructor)
@@ -20,12 +15,12 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
             _DbContext = DbContext;
         }
         #endregion
-        public IActionResult Index()
-        {
 
+        #region (Index)
+        public IActionResult IndexAdmin()
+        {
             return View();
         }
-
-        
+        #endregion
     }
 }

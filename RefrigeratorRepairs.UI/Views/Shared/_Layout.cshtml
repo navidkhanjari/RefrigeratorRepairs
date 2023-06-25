@@ -4,8 +4,11 @@
 
 
 <head>
+    <title>تعمیرات یخچال کرج - @ViewData["Title"]</title>
+
     <meta charset="utf-8" />
-    <title>تعمیرات یخچال کرج -</title>
+    @await RenderSectionAsync("MetaTags", false)
+
     <link rel="shortcut icon" href="/Site/images/favicon.ico">
     <link href="/Site/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/Site/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
@@ -13,6 +16,7 @@
     <link rel="stylesheet" href="/Site/css/tiny-slider.css" />
     <link href="/Site/css/style.min.css" rel="stylesheet" type="text/css" id="theme-opt" />
     <link href="/Site/css/colors/default.css" rel="stylesheet" id="color-opt">
+    @await RenderSectionAsync("MetaLink", false)
 </head>
 
 <body>
