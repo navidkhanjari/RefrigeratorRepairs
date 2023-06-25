@@ -10,5 +10,7 @@ namespace RefrigeratorRepairs.UI.ViewModels.SiteSetting
         public string Description { get; set; }
         public string PhoneNumber { get; set; }
         public string BackgroundImageName { get; set; }
+        public string WhatWeDo { get; set; }
+        public string AboutUs { get; set; }
     }
 }

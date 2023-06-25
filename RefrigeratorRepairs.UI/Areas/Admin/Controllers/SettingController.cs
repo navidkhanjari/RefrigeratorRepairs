@@ -31,19 +31,25 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
             if(setting == null)
             {
+                #region (Setting Not Found)
                 ErrorAlert("خطایی رخ داد!");
 
                 return RedirectToAction("IndexAdmin");
+                #endregion
             }
-
+            
+            #region (Fill Fields)
             SiteSettingDetailViewModel model = new SiteSettingDetailViewModel()
             {
                 BackgrondImageName = setting.Background,
                 Description = setting.Description,
                 PhoneNumber = setting.PhoneNumber,
                 TextInBackground = setting.TextInBackground,
+                WhatWeDo = setting.WhatWeDo,
+                AboutUs = setting.AboutUs,
                 Id = setting.Id
             };
+            #endregion
 
             return View(model);
         }
@@ -58,7 +64,8 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
             if (setting == null)
             {
                 ErrorAlert("خطایی رخ داد !");
-                //return index
+
+                return Redirect("/");
             }
             EditSettingViewModel model = new EditSettingViewModel()
             {
@@ -66,6 +73,8 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 PhoneNumber = setting.PhoneNumber,
                 TextInBackground = setting.TextInBackground,
                 BackgroundImageName = setting.Background,
+                AboutUs = setting.AboutUs,
+                WhatWeDo =setting.WhatWeDo,
                 Id = setting.Id
             };
 
@@ -80,8 +89,9 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
             var setting = _DbContext.SiteSettings.Where(s => s.Id == EditSettingViewModel.Id).SingleOrDefault();
             if (setting == null)
             {
-                ErrorAlert("خطایی رخ داد !");
-                //return index
+                ErrorAlert("خطایی رخ داد!");
+
+                return Redirect("/");
             }
             try
             {
@@ -89,6 +99,8 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 {
                     setting.TextInBackground = EditSettingViewModel.TextInBackground;
                     setting.PhoneNumber = EditSettingViewModel.PhoneNumber;
+                    setting.WhatWeDo = EditSettingViewModel.WhatWeDo;
+                    setting.AboutUs = EditSettingViewModel.AboutUs;
                     setting.Description = EditSettingViewModel.Description;
                 }
 
@@ -107,6 +119,8 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                     setting.TextInBackground = EditSettingViewModel.TextInBackground;
                     setting.PhoneNumber = EditSettingViewModel.PhoneNumber;
                     setting.Description = EditSettingViewModel.Description;
+                    setting.WhatWeDo = EditSettingViewModel.WhatWeDo;
+                    setting.AboutUs = EditSettingViewModel.AboutUs;
 
                     setting.Background = Guid.NewGuid().ToString("N") + Path.GetExtension(EditSettingViewModel.BackgrondImage.FileName);
 
@@ -119,6 +133,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
             }
             catch
             {
+                ErrorAlert("عملیات با شکست مواجه شد!");
 
                 return RedirectToAction("SettingIndex");
             }

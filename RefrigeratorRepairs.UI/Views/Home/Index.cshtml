@@ -1,19 +1,18 @@
 ﻿@model RefrigeratorRepairs.UI.ViewModels.SiteSetting.SiteSettingDetailViewModel
 @using RefrigeratorRepairs.UI.Utilities
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "صفحه اصلی";
 }
-
 <section class="section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
                 <div class="section-title mb-4 pb-2">
                     <h4 class="title mb-4">چه کاری انجام می دهیم؟</h4>
-                    <p class="text-muted para-desc mb-0 mx-auto"></p>
+                    <p class="text-muted para-desc mb-0 mx-auto">@Model.WhatWeDo</p>
                 </div>
-            </div><!--end col-->
-        </div><!--end row-->
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-lg-3 col-md-4 mt-4 pt-2">
@@ -29,7 +28,7 @@
                         <i class="uil uil-chart-line"></i>
                     </span>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-lg-3 col-md-4 mt-4 pt-2">
                 <div class="card features fea-primary rounded p-4 bg-light text-center position-relative overflow-hidden border-0">
@@ -44,7 +43,7 @@
                         <i class="uil uil-crosshairs"></i>
                     </span>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-lg-3 col-md-4 mt-4 pt-2">
                 <div class="card features fea-primary rounded p-4 bg-light text-center position-relative overflow-hidden border-0">
@@ -59,7 +58,7 @@
                         <i class="uil uil-airplay"></i>
                     </span>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-lg-3 col-md-4 mt-4 pt-2">
                 <div class="card features fea-primary rounded p-4 bg-light text-center position-relative overflow-hidden border-0">
@@ -74,7 +73,7 @@
                         <i class="uil uil-rocket"></i>
                     </span>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-lg-3 col-md-4 mt-4 pt-2">
                 <div class="card features fea-primary rounded p-4 bg-light text-center position-relative overflow-hidden border-0">
@@ -89,7 +88,7 @@
                         <i class="uil uil-clock"></i>
                     </span>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-lg-3 col-md-4 mt-4 pt-2">
                 <div class="card features fea-primary rounded p-4 bg-light text-center position-relative overflow-hidden border-0">
@@ -104,7 +103,7 @@
                         <i class="uil uil-users-alt"></i>
                     </span>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-lg-3 col-md-4 mt-4 pt-2">
                 <div class="card features fea-primary rounded p-4 bg-light text-center position-relative overflow-hidden border-0">
@@ -119,7 +118,7 @@
                         <i class="uil uil-file-alt"></i>
                     </span>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-lg-3 col-md-4 mt-4 pt-2">
                 <div class="card features fea-primary rounded p-4 bg-light text-center position-relative overflow-hidden border-0">
@@ -134,14 +133,14 @@
                         <i class="uil uil-search"></i>
                     </span>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-lg-12 text-center col-md-4 mt-4 pt-2">
                 <a href="javascript:void(0)" class="btn btn-primary">نمایش بیشتر <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left fea icon-sm"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
-            </div><!--end col-->
-        </div><!--end row-->
-    </div><!--end container-->
-    <!-- About Start -->
+            </div>
+        </div>
+    </div>
+    
     <div class="container mt-100 mt-60">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6">
@@ -157,7 +156,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!--end col-->
+                    </div>
 
                     <div class="col-lg-6 col-6">
                         <div class="row">
@@ -172,7 +171,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div><!--end col-->
+                            </div>
 
                             <div class="col-lg-12 col-md-12 mt-4 pt-2">
                                 <div class="card work-container work-modern overflow-hidden rounded border-0 shadow-md">
@@ -185,11 +184,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </div><!--end col-->
-                </div><!--end row-->
-            </div><!--end col-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-lg-6 col-md-6 mt-4 mt-lg-0 pt- pt-lg-0">
                 <div class="ms-lg-4">
@@ -211,8 +210,8 @@
                     </div>
                 </div>
             </div>
-        </div><!--end row-->
-    </div><!--end container-->
+        </div>
+    </div>
 </section>
 
 <section class="section pt-0">
@@ -227,7 +226,7 @@
                                 <div class="progress-value d-block text-light title-dark h6">84%</div>
                             </div>
                         </div>
-                    </div><!--end process box-->
+                    </div>
                     <div class="progress-box mt-4">
                         <h6 class="title text-light title-dark">توسعه وب </h6>
                         <div class="progress title-bg-dark" style="height: 10px; padding: 3px">
@@ -235,7 +234,7 @@
                                 <div class="progress-value d-block text-light title-dark h6">75%</div>
                             </div>
                         </div>
-                    </div><!--end process box-->
+                    </div>
                     <div class="progress-box mt-4">
                         <h6 class="title text-light title-dark">توسعه بازی</h6>
                         <div class="progress title-bg-dark" style="height: 10px; padding: 3px">
@@ -243,8 +242,8 @@
                                 <div class="progress-value d-block text-light title-dark h6">79%</div>
                             </div>
                         </div>
-                    </div><!--end process box-->
-                </div><!--end col-->
+                    </div>
+                </div>
 
                 <div class="col-md-6 col-12">
                     <div class="progress-box mt-4 mt-sm-0">
@@ -254,7 +253,7 @@
                                 <div class="progress-value d-block text-light title-dark h6">84%</div>
                             </div>
                         </div>
-                    </div><!--end process box-->
+                    </div>
                     <div class="progress-box mt-4">
                         <h6 class="title text-light title-dark">دیجیتال مارکتینگ</h6>
                         <div class="progress title-bg-dark" style="height: 10px; padding: 3px">
@@ -262,7 +261,7 @@
                                 <div class="progress-value d-block text-light title-dark h6">75%</div>
                             </div>
                         </div>
-                    </div><!--end process box-->
+                    </div>
                     <div class="progress-box mt-4">
                         <h6 class="title text-light title-dark">توسعه کامل پشته</h6>
                         <div class="progress title-bg-dark" style="height: 10px; padding: 3px">
@@ -270,9 +269,9 @@
                                 <div class="progress-value d-block text-light title-dark h6">79%</div>
                             </div>
                         </div>
-                    </div><!--end process box-->
-                </div><!--end col-->
-            </div><!--end row -->
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row mt-4 pt-2 position-relative" id="counter" style="z-index: 1;">
@@ -281,7 +280,7 @@
                     <img src="/Site/images/illustrator/Asset190.svg" class="avatar avatar-small" alt="">
                     <h2 class="mb-0 mt-4"><span class="counter-value" data-target="97">97</span>%</h2>
                     <h6 class="counter-head text-muted">مشتریان خوشحال </h6>
-                </div><!--end counter box-->
+                </div>
             </div>
 
             <div class="col-md-3 col-6 mt-4 pt-2">
@@ -289,7 +288,7 @@
                     <img src="/Site/images/illustrator/Asset189.svg" class="avatar avatar-small" alt="">
                     <h2 class="mb-0 mt-4"><span class="counter-value" data-target="15">15</span>+</h2>
                     <h6 class="counter-head text-muted">جوایز </h6>
-                </div><!--end counter box-->
+                </div>
             </div>
 
             <div class="col-md-3 col-6 mt-4 pt-2">
@@ -297,7 +296,7 @@
                     <img src="/Site/images/illustrator/Asset192.svg" class="avatar avatar-small" alt="">
                     <h2 class="mb-0 mt-4"><span class="counter-value" data-target="2">2</span>هزار </h2>
                     <h6 class="counter-head text-muted">موقعیت شغلی</h6>
-                </div><!--end counter box-->
+                </div>
             </div>
 
             <div class="col-md-3 col-6 mt-4 pt-2">
@@ -305,13 +304,12 @@
                     <img src="/Site/images/illustrator/Asset187.svg" class="avatar avatar-small" alt="">
                     <h2 class="mb-0 mt-4"><span class="counter-value" data-target="98">98</span>%</h2>
                     <h6 class="counter-head text-muted">پروژه های تکمیلی</h6>
-                </div><!--end counter box-->
+                </div>
             </div>
-        </div><!--end row-->
+        </div>
         <div class="feature-posts-placeholder bg-light"></div>
-    </div><!--end container-->
+    </div>
 </section>
-
 
 <section class="section">
     <div class="container">
@@ -322,8 +320,8 @@
                     <h4 class="title mb-4">چگونه کار می کنیم؟</h4>
                     <p class="text-muted para-desc mx-auto mb-0">شروع به کار با <span class="text-primary fw-bold">لنـدریـک </span> که می تواند هر آنچه را که شما برای ایجاد آگاهی ، ایجاد ترافیک ، اتصال به آن نیاز دارید فراهم کند.</p>
                 </div>
-            </div><!--end col-->
-        </div><!--end row-->
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-4 mt-4 pt-2">
@@ -337,7 +335,7 @@
                         <p class="text-muted mb-0">مشهورترین متن ساختگی "لورم اپیسوم" است که گفته می شود ریشه دارد</p>
                     </div>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-md-4 mt-md-5 pt-md-3 mt-4 pt-2">
                 <div class="card features feature-clean work-process bg-transparent process-arrow border-0 text-center">
@@ -350,7 +348,7 @@
                         <p class="text-muted mb-0">مشهورترین متن ساختگی "لورم اپیسوم" است که گفته می شود ریشه دارد.</p>
                     </div>
                 </div>
-            </div><!--end col-->
+            </div>
 
             <div class="col-md-4 mt-md-5 pt-md-5 mt-4 pt-2">
                 <div class="card features feature-clean work-process bg-transparent d-none-arrow border-0 text-center">
@@ -363,9 +361,9 @@
                         <p class="text-muted mb-0">مشهورترین متن ساختگی "لورم اپیسوم" است که گفته می شود ریشه دارد.</p>
                     </div>
                 </div>
-            </div><!--end col-->
-        </div><!--end row-->
-    </div><!--end container-->
+            </div>
+        </div>
+    </div>
 
 </section>
 

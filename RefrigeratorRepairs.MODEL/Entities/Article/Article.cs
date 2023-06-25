@@ -13,6 +13,7 @@ namespace RefrigeratorRepairs.MODEL.Entities.Article
         public string MetaDescription { get; set; }
         public string MetaKeyword { get; set; }
         public string Slug { get; set; }
+        public int Visit { get; set; }
         public DateTime CreatedDate { get; set; }
         #endregion
     }

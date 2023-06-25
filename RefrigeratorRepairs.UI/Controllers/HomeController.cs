@@ -27,7 +27,7 @@ namespace RefrigeratorRepairs.UI.Controllers
 
         #region (Methods)
         #region (Index)
-        public IActionResult IndexHome()
+        public IActionResult Index()
         {
             var model = _DbContext.SiteSettings.FirstOrDefault();
             SiteSettingDetailViewModel SiteSettingDetailViewModel = new SiteSettingDetailViewModel()
@@ -35,10 +35,20 @@ namespace RefrigeratorRepairs.UI.Controllers
                 TextInBackground = model.TextInBackground,
                 BackgrondImageName = model.Background,
                 Description = model.Description,
-                PhoneNumber = model.PhoneNumber
+                PhoneNumber = model.PhoneNumber,
+                AboutUs = model.AboutUs,
+                WhatWeDo = model.WhatWeDo,
             };
 
             return View(SiteSettingDetailViewModel);
+        }
+        #endregion
+
+        #region (About Us)
+        [HttpGet("ContactUs")]
+        public IActionResult ContactUs()
+        {
+            return View();
         }
         #endregion
 
@@ -55,14 +65,16 @@ namespace RefrigeratorRepairs.UI.Controllers
         [HttpGet("Article/{Slug}")]
         public IActionResult SingleArticle(string Slug)
         {
-            var article = _DbContext.Articles.Where(A => A.Slug == Slug);
+            var article = _DbContext.Articles.Where(A => A.Slug == Slug).SingleOrDefault();
 
             if (article == null)
             {
                 ErrorAlert("مقاله یافت نشد!");
 
-                return RedirectToAction("IndexHome");
+                return RedirectToAction("Index");
             }
+
+            article.Visit += 1;
 
             ViewData["SiteUrl"] = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
 

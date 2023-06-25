@@ -73,6 +73,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                     MetaDescription = AddArticleViewModel.MetaDescription,
                     MetaKeyword = AddArticleViewModel.MetaKeyword,
                     ImageAlt = AddArticleViewModel.ImageAlt,
+                    Visit = 0,
                     CreatedDate = DateTime.Now,
                     ImageName = Guid.NewGuid().ToString("N") + Path.GetExtension(AddArticleViewModel.Image.FileName),
                 };
@@ -262,6 +263,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 Slug = Article.Slug,
                 Title = Article.Title,
                 ImageName = Article.ImageName,
+                Visit = Article.Visit,
                 CratedDate = Article.CreatedDate,
             };
 
