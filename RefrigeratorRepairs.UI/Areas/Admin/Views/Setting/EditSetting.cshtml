@@ -56,25 +56,26 @@
             </div>
 
             <div class="col-md-12">
-                <label for="basicInput">تصویر اصلی</label>
+                @Html.EditorFor(a=> a.AboutUs)
+            </div>
+
+            <div class="col-md-12">
+                <label for="basicInput"><span class="text-danger">(1080 * 1920)</span> تصویر اصلی سایت</label>
                 <input type="file" asp-for="BackgrondImage">
                 <span asp-validation-for="BackgrondImage" class="text-danger"></span>
             </div>
 
-
-            <div class="col-md-12">
-                @Html.EditorFor(a=> a.AboutUs)
-            </div>
             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
                 <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">ذخیره تغییرات</button>
                 <button type="reset" class="btn btn-light">انصراف</button>
             </div>
 
+
         </div>
     </div>
 </form>
 @section Scripts
-{
+    {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }

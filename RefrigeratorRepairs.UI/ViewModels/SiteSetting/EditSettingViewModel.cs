@@ -26,7 +26,7 @@ namespace RefrigeratorRepairs.UI.ViewModels.SiteSetting
 
         [UIHint("Ckeditor4")]
         [Required(ErrorMessage = "وارد کردن این فیلد اجباری است!")]
-        [Display(Name ="درباره ما")]
+        [Display(Name ="تماس با ما")]
         public string AboutUs { get; set; }
     }
 }
