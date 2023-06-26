@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using RefrigeratorRepairs.MODEL.Context;
 using RefrigeratorRepairs.MODEL.Entities.User;
 using RefrigeratorRepairs.UI.Utilities;
+using RefrigeratorRepairs.UI.ViewModels.Account;
 using RefrigeratorRepairs.UI.ViewModels.Articles;
 using RefrigeratorRepairs.UI.ViewModels.SiteSetting;
 using System;
@@ -48,7 +49,15 @@ namespace RefrigeratorRepairs.UI.Controllers
         [HttpGet("ContactUs")]
         public IActionResult ContactUs()
         {
-            return View();
+           var setting = _DbContext.SiteSettings.FirstOrDefault();
+
+            //if null return home and show alert
+            SiteSettingContactUs model = new SiteSettingContactUs()
+            {
+                AboutUs = setting.AboutUs,
+            };
+
+            return View(model);
         }
         #endregion
 
@@ -85,7 +94,7 @@ namespace RefrigeratorRepairs.UI.Controllers
 
         #region (Admin Login)
         #region (Get)
-        [HttpGet("/Ad/Login")]
+        [HttpGet("Ad/Login")]
         public IActionResult Login()
         {
             if (User.Identity.IsAuthenticated) return Redirect("/");
@@ -94,10 +103,10 @@ namespace RefrigeratorRepairs.UI.Controllers
         #endregion
 
         #region (Post)
-        [HttpPost("/Ad/Login")]
-        public IActionResult Login(User user)
+        [HttpPost("Ad/Login")]
+        public IActionResult Login(LoginViewModel LoginViewModel)
         {
-            var admin = _DbContext.Users.Where(U => U.Id == user.Id && U.Role == Role.Admin).SingleOrDefault();
+            var admin = _DbContext.Users.Where(U => U.UserName == LoginViewModel.UserName && U.Role == Role.Admin).SingleOrDefault();
 
             if (admin == null)
             {
@@ -108,19 +117,19 @@ namespace RefrigeratorRepairs.UI.Controllers
 
             var Claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,user.FirstName),
+                new Claim(ClaimTypes.Name,admin.FirstName),
             };
 
             var Identity = new ClaimsIdentity(Claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var Principal = new ClaimsPrincipal(Identity);
             var Properties = new AuthenticationProperties
             {
-                IsPersistent = true
+                IsPersistent = LoginViewModel.RememberMe,
             };
 
             HttpContext.SignInAsync(Principal, Properties);
 
-            return Redirect("/Admin");
+            return Redirect("/AdminPanel");
         }
         #endregion
         #endregion

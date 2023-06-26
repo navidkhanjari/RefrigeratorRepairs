@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
+using Microsoft.CodeAnalysis.Options;
 
 namespace RefrigeratorRepairs.UI
 {
@@ -23,12 +24,18 @@ namespace RefrigeratorRepairs.UI
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            #region (Authentication)
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
             {
+                options.LoginPath = "/Ad/Login";
+                options.LogoutPath = "/Ad/Logout";
                 options.ExpireTimeSpan = TimeSpan.FromDays(30);
                 options.SlidingExpiration = true;
-                options.AccessDeniedPath = "/Forbidden/";
+                options.AccessDeniedPath = "/";
             });
+            #endregion
 
             #region (DbContext)
             services.AddDbContext<MODEL.Context.RRContext>(options =>

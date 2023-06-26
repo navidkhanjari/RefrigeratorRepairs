@@ -1,0 +1,82 @@
+﻿@model RefrigeratorRepairs.UI.ViewModels.Account.LoginViewModel
+@{
+    ViewData["Title"] = "ورود";
+}
+<div class="back-to-home rounded d-none d-sm-block">
+    <a href="/" class="btn btn-icon btn-soft-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home icons"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a>
+</div>
+<section class="bg-home d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 col-md-6">
+                <div class="me-lg-5">
+                    <img src="Site/images/user/login.svg" class="img-fluid d-block mx-auto">
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <div class="card login-page bg-white shadow rounded border-0">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">@ViewData["Title"] </h4>
+                        <form class="login-form mt-4" method="post" action="/Ad/Login">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">نام کاربری<span class="text-danger">*</span></label>
+                                        <div class="form-icon position-relative">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user fea icon-sm icons"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                            <input asp-for="UserName" class="form-control ps-5" placeholder="ایمیل">
+                                        </div>
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">رمز عبور  <span class="text-danger">*</span></label>
+                                        <div class="form-icon position-relative">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-key fea icon-sm icons"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                                            <input asp-for="Password" class="form-control ps-5">
+                                        </div>
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="mb-3">
+                                            <div class="form-check">
+                                                <input asp-for="RememberMe" class="form-check-input" type="checkbox" value="true">
+                                                <label class="form-check-label" for="flexCheckDefault">مرا به خاطر بسپار </label>
+                                            </div>
+                                        </div>
+                                        <p class="forgot-pass mb-0"><a asp-controller="Account" asp-action="ForgotPassword" class="text-dark fw-bold">فراموشی رمز عبور؟ </a></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="mb-3">
+                                            <div class="g-recaptcha" data-sitekey="6Le3ArsdAAAAAIHWn_GqySB1yBob6jGkEWvuGviF"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mb-0">
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">ورود</button>
+                                    </div>
+                                </div>
+                              
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}
+

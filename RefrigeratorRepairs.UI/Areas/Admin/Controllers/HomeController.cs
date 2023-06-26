@@ -17,9 +17,10 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
         #endregion
 
         #region (Index)
+        [HttpGet("AdminPanel")]
         public IActionResult IndexAdmin()
         {
-            return View();
+            return View("Index");
         }
         #endregion
     }
