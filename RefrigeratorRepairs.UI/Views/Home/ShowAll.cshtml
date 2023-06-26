@@ -5,7 +5,7 @@
 }
 @await Component.InvokeAsync("SiteHeader")
 
-<section class="bg-half d-table w-100" style="background: url('/images/Default/articles-bg.jpg') center center;">
+<section class="bg-half d-table w-100" style="background: url('/Site/images/Home/pic4.jpg') center center;">
     <div class="bg-overlay"></div>
     <div class="container">
         <div class="row justify-content-center">
@@ -41,7 +41,7 @@
                 <div class="component-wrapper rounded shadow">
                     <div class="p-4">
                         <div class="subcribe-form">
-                            <form asp-controller="Articles" asp-action="Index" method="get">
+                            <form action="/Articles" method="get">
                                 <input type="hidden" asp-for="Page" />
                                 <input asp-for="Title" class="form-control rounded-pill shadow" placeholder="عنوان مورد نظر..." aria-describedby="newssubscribebtn">
                                 <button type="submit" class="btn btn-pills btn-primary">جستجو</button>
@@ -129,4 +129,19 @@
 
 @await Component.InvokeAsync("SiteFooter")
 @section Scripts {
+    <script>
+
+         ﻿function changePage(Page)
+         {
+             var url = new URL(window.location.href);
+             var SerachParams = url.searchParams;
+    
+             SerachParams.set('Page', Page);
+             url.search = SerachParams.toString();
+             
+             var newUrlString = url.toString();
+             window.location.replace(newUrlString);
+         }
+    </script>
+   
 }

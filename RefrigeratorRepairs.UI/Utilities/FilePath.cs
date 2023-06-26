@@ -12,8 +12,13 @@ namespace RefrigeratorRepairs.UI.Utilities
 
         public static readonly string ArticlePath = "/images/article/origin/";
         public static readonly string ArticleUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/article/origin/");
+        
         public static readonly string ArticleThumbPath = "/images/article/thumb/";
         public static readonly string ArticleThumbUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/article/thumb/");
+
+        public static readonly string ArticleContentImage= "/images/article/content/";
+        public static readonly string ArticleContentImageUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/article/content/");
+
         public static string GetArticleImage(string imageName) => $"{ArticlePath.Replace("wwwroot", "")}{imageName}";
         public static string UploadImagePathServer { get; set; }
 

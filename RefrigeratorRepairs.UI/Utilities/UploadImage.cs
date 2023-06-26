@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
+using RefrigeratorRepairs.UI.ViewModels.Articles;
+
 namespace RefrigeratorRepairs.UI.Utilities
 {
     public static class UploadImage
@@ -44,6 +47,18 @@ namespace RefrigeratorRepairs.UI.Utilities
                         resizer.ImageResizer(orginalPath + fileName, thumbPath + fileName, width, height);
                 }
             }
+        }
+        public static string SaveFileAndReturnName(IFormFile file,string savepath)
+        {
+            if (file == null)
+                throw new Exception("File Is Null");
+
+            var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
+
+
+            file.AddImageToServer(fileName, savepath, 200, 200);
+            
+            return fileName;
         }
     }
 }
