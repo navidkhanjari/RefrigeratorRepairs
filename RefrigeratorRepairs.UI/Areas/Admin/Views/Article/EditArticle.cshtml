@@ -6,9 +6,18 @@
     ViewData["selected"] = "Article_";
 
 }
-
-<h3>@ViewData["title"]</h3>
-
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/AdminPannel">خانه</a></li>
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
 <form class="card" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
     <div class="card-body">

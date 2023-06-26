@@ -1,4 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "داشبورد";
+    ViewData["selected"] = "Dashboard";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/AdminPannel">خانه</a></li>
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item">
+                        @User.Identity.Name عزیز خوش آمدید!
+                    </li>
+                
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>

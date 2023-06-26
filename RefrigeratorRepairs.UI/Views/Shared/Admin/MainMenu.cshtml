@@ -5,7 +5,7 @@
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item mr-auto">
-                <a class="navbar-brand" href="../../html/vertical-menu-template-semi-dark/index.html">
+                <a class="navbar-brand" href="/AdminPannel">
                     <div class="brand-logo"><img class="logo" src="/Admin/assets/images/logo/logo.png"></div>
                     <h2 class="brand-text mb-0">پنل مدیریت</h2>
                 </a>
@@ -15,6 +15,11 @@
     </div>
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
+            <li class="nav-item @(selected == "Dashboard" ? "active" : null)">
+                <a href="/AdminPannel"><i class="menu-livicon" data-icon="dashboard"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
+            </li>
+        </ul>
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
             <li class="nav-item @(selected == "Article_" ? "active" : null)">
                 <a href="javascript:void(0)"><i class="menu-livicon" data-icon="grid"></i><span class="menu-title" data-i18n="Dashboard">مدیریت مقالات</span></a>

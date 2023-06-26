@@ -1,14 +1,26 @@
 ﻿@model RefrigeratorRepairs.UI.ViewModels.Articles.ArticleFilterViewModel
 @using RefrigeratorRepairs.UI.Utilities;
 @{
-    ViewData["Title"] = "مدیریت مقالات";
+    ViewData["Title"] = "لیست مقالات";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["selected"] = "Article_Index";
 
 }
 
 
-<h3>@ViewData["Title"]</h3>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/AdminPannel">خانه</a></li>
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
 <a href="/Admin/Article/Add" class="btn btn-success mb-2">افزودن مقاله جدید</a>
 <section class="users-list-wrapper">
     <div class="users-list-filter px-1">

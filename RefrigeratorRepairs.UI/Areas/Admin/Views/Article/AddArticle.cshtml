@@ -4,8 +4,18 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["selected"] = "Article_Add";
 }
-
-<h3>@ViewData["title"]</h3>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left">
+                    <li class="breadcrumb-item"><a href="/AdminPannel">خانه</a></li>
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
 
 <form class="card" method="post" enctype="multipart/form-data">
     <div class="card-body">
@@ -63,7 +73,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="basicInput"> Alt تصویر </label>
-                    <input type="text" class="form-control" asp-for="Slug">
+                    <input type="text" class="form-control" asp-for="ImageAlt">
                 </div>
                 <span asp-validation-for="ImageAlt" class="text-danger"></span>
             </div>

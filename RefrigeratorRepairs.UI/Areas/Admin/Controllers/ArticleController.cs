@@ -79,7 +79,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 };
 
                 #region (CREATE NEW IMAGE)
-                AddArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 150, 150, FilePath.ArticleThumbUploadPath);
+                AddArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 200, 200, FilePath.ArticleThumbUploadPath);
                 #endregion
                 #endregion
 
@@ -181,7 +181,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
                 Article.ImageName = Guid.NewGuid().ToString("N") + Path.GetExtension(EditArticleViewModel.Image.FileName);
 
-                EditArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 150, 150, FilePath.ArticleThumbUploadPath);
+                EditArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 200, 200, FilePath.ArticleThumbUploadPath);
 
 
 

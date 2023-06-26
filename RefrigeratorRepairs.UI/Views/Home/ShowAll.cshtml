@@ -65,7 +65,7 @@
                         <div class="card blog rounded border-0 shadow overflow-hidden">
                             <div class="row align-items-center g-0">
                                 <div class="col-md-6">
-                                    <img src="@(FilePath.ArticlePath + Article.ImageName)" class="img-fluid" alt="@Article.ImageAlt">
+                                    <img src="@(FilePath.ArticleThumbPath + Article.ImageName)" class="img-fluid" alt="@Article.ImageAlt">
                                     <div class="overlay bg-dark"></div>
                                     <div class="author">
                                         <small class="text-light user d-block"><i class="uil uil-user"></i> تعمیرات یخچال</small>
@@ -80,7 +80,7 @@
                                         <div class="post-meta d-flex justify-content-between mt-3">
                                             <ul class="list-unstyled mb-0">
                                             </ul>
-                                            <a asp-controller="Articles" asp-action="NewsArticle" asp-route-slug="@Article.Slug" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
+                                            <a href="/Article/@Article.Slug" class="text-muted readmore">ادامه مطلب  <i class="uil uil-angle-left-b align-middle"></i></a>
                                         </div>
                                     </div>
                                 </div>
