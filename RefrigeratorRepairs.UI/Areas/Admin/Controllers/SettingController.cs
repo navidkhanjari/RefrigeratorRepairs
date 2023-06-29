@@ -24,12 +24,13 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
         #region (Methods)
         #region (Index)
+        #region (GET)
         [HttpGet("Admin/Settings")]
         public IActionResult SettingIndex()
         {
-            var setting = _DbContext.SiteSettings.FirstOrDefault();
+            var Setting = _DbContext.SiteSettings.FirstOrDefault();
 
-            if(setting == null)
+            if (Setting == null)
             {
                 #region (Setting Not Found)
                 ErrorAlert("خطایی رخ داد!");
@@ -37,22 +38,23 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 return RedirectToAction("IndexAdmin");
                 #endregion
             }
-            
+
             #region (Fill Fields)
-            SiteSettingDetailViewModel model = new SiteSettingDetailViewModel()
+            SiteSettingDetailViewModel SiteSettingDetailViewModel = new SiteSettingDetailViewModel()
             {
-                BackgrondImageName = setting.Background,
-                Description = setting.Description,
-                PhoneNumber = setting.PhoneNumber,
-                TextInBackground = setting.TextInBackground,
-                WhatWeDo = setting.WhatWeDo,
-                AboutUs = setting.AboutUs,
-                Id = setting.Id
+                BackgrondImageName = Setting.Background,
+                Description = Setting.Description,
+                PhoneNumber = Setting.PhoneNumber,
+                TextInBackground = Setting.TextInBackground,
+                WhatWeDo = Setting.WhatWeDo,
+                AboutUs = Setting.AboutUs,
+                Id = Setting.Id
             };
             #endregion
 
-            return View(model);
+            return View(SiteSettingDetailViewModel);
         }
+        #endregion
         #endregion
 
         #region (Edit)
@@ -60,25 +62,31 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
         [HttpGet("Admin/Setting/Edit/{Id}")]
         public IActionResult EditSetting(int Id)
         {
-            var setting = _DbContext.SiteSettings.Where(s => s.Id == Id).SingleOrDefault();
-            if (setting == null)
+            var Setting = _DbContext.SiteSettings.Where(s => s.Id == Id).SingleOrDefault();
+
+            if (Setting == null)
             {
+                #region (Setting Not Found)
                 ErrorAlert("خطایی رخ داد !");
 
                 return Redirect("/");
+                #endregion
             }
-            EditSettingViewModel model = new EditSettingViewModel()
-            {
-                Description = setting.Description,
-                PhoneNumber = setting.PhoneNumber,
-                TextInBackground = setting.TextInBackground,
-                BackgroundImageName = setting.Background,
-                AboutUs = setting.AboutUs,
-                WhatWeDo =setting.WhatWeDo,
-                Id = setting.Id
-            };
 
-            return View(model);
+            #region (Fill Fields)
+            EditSettingViewModel EditSettingViewModel = new EditSettingViewModel()
+            {
+                Description = Setting.Description,
+                PhoneNumber = Setting.PhoneNumber,
+                TextInBackground = Setting.TextInBackground,
+                BackgroundImageName = Setting.Background,
+                AboutUs = Setting.AboutUs,
+                WhatWeDo = Setting.WhatWeDo,
+                Id = Setting.Id
+            };
+            #endregion
+
+            return View(EditSettingViewModel);
         }
         #endregion
 
@@ -86,56 +94,66 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
         [HttpPost("Admin/Setting/Edit/{Id}")]
         public IActionResult EditSetting(EditSettingViewModel EditSettingViewModel)
         {
-            var setting = _DbContext.SiteSettings.Where(s => s.Id == EditSettingViewModel.Id).SingleOrDefault();
-            if (setting == null)
+            var Setting = _DbContext.SiteSettings.Where(s => s.Id == EditSettingViewModel.Id).SingleOrDefault();
+
+            if (Setting == null)
             {
+                #region (Setting Not Found)
                 ErrorAlert("خطایی رخ داد!");
 
                 return Redirect("/");
+                #endregion
             }
             try
             {
+                #region (Image Null)
                 if (EditSettingViewModel.BackgrondImage == null)
                 {
-                    setting.TextInBackground = EditSettingViewModel.TextInBackground;
-                    setting.PhoneNumber = EditSettingViewModel.PhoneNumber;
-                    setting.WhatWeDo = EditSettingViewModel.WhatWeDo;
-                    setting.AboutUs = EditSettingViewModel.AboutUs;
-                    setting.Description = EditSettingViewModel.Description;
+                    Setting.TextInBackground = EditSettingViewModel.TextInBackground;
+                    Setting.PhoneNumber = EditSettingViewModel.PhoneNumber;
+                    Setting.WhatWeDo = EditSettingViewModel.WhatWeDo;
+                    Setting.AboutUs = EditSettingViewModel.AboutUs;
+                    Setting.Description = EditSettingViewModel.Description;
                 }
+                #endregion
 
-                if (EditSettingViewModel.BackgrondImage != null)
+                #region (Fill Fields)
+                #region (Delete Old Image)
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.BackgroundImageUploadPath, Setting.Background);
+                var imageThumbPath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.BackgroundImageUploadPath, Setting.Background);
+
+                if (System.IO.File.Exists(imagePath) && System.IO.File.Exists(imageThumbPath))
                 {
-                    // delete old image 
-                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.BackgroundImageUploadPath, setting.Background);
-                    var imageThumbPath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.BackgroundImageUploadPath, setting.Background);
-
-                    if (System.IO.File.Exists(imagePath) && System.IO.File.Exists(imageThumbPath))
-                    {
-                        System.IO.File.Delete(imageThumbPath);
-                        System.IO.File.Delete(imagePath);
-                    }
-
-                    setting.TextInBackground = EditSettingViewModel.TextInBackground;
-                    setting.PhoneNumber = EditSettingViewModel.PhoneNumber;
-                    setting.Description = EditSettingViewModel.Description;
-                    setting.WhatWeDo = EditSettingViewModel.WhatWeDo;
-                    setting.AboutUs = EditSettingViewModel.AboutUs;
-
-                    setting.Background = Guid.NewGuid().ToString("N") + Path.GetExtension(EditSettingViewModel.BackgrondImage.FileName);
-
-                    EditSettingViewModel.BackgrondImage.AddImageToServer(setting.Background, FilePath.BackgroundImageUploadPath, 150, 150, FilePath.BackgroundImageThumbUploadPath);
-
+                    System.IO.File.Delete(imageThumbPath);
+                    System.IO.File.Delete(imagePath);
                 }
+                #endregion
 
-                _DbContext.Update(setting);
+                Setting.TextInBackground = EditSettingViewModel.TextInBackground;
+                Setting.PhoneNumber = EditSettingViewModel.PhoneNumber;
+                Setting.Description = EditSettingViewModel.Description;
+                Setting.WhatWeDo = EditSettingViewModel.WhatWeDo;
+                Setting.AboutUs = EditSettingViewModel.AboutUs;
+
+                #region (Create New Image)
+                Setting.Background = Guid.NewGuid().ToString("N") + Path.GetExtension(EditSettingViewModel.BackgrondImage.FileName);
+                EditSettingViewModel.BackgrondImage.AddImageToServer(Setting.Background, FilePath.BackgroundImageUploadPath, 150, 150, FilePath.BackgroundImageThumbUploadPath);
+                #endregion
+                #endregion
+
+                #region (Save)
+                _DbContext.SiteSettings.Update(Setting);
+
                 _DbContext.SaveChanges();
+                #endregion
             }
             catch
             {
+                #region (Error)
                 ErrorAlert("عملیات با شکست مواجه شد!");
 
                 return RedirectToAction("SettingIndex");
+                #endregion
             }
 
             return RedirectToAction("SettingIndex");

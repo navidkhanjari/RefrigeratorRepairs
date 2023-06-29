@@ -25,11 +25,13 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
         #region (Methods)
         #region (Index)
+        #region (GET)
         [HttpGet("Admin/Articles")]
         public IActionResult IndexArticle(ArticleFilterViewModel ArticleFilterViewModel)
         {
             return View(this.FilterArticleAsync(ArticleFilterViewModel));
         }
+        #endregion
         #endregion
 
         #region (Add)
@@ -45,10 +47,12 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
         [HttpPost("Admin/Article/Add")]
         public IActionResult AddArticle(AddArticleViewModel AddArticleViewModel)
         {
+            #region (Validation)
             if (!ModelState.IsValid)
             {
                 return View(AddArticleViewModel);
             }
+            #endregion
 
             var Articles = _DbContext.Articles.Where(A => A.Slug == AddArticleViewModel.Slug).SingleOrDefault();
 
@@ -79,7 +83,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 };
 
                 #region (CREATE NEW IMAGE)
-                AddArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 200, 200, FilePath.ArticleThumbUploadPath);
+                AddArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 250, 250, FilePath.ArticleThumbUploadPath);
                 #endregion
                 #endregion
 
@@ -97,6 +101,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
             {
                 #region (Error)
                 this.ErrorAlert("عملیات با شکست مواجه شد!");
+
                 return RedirectToAction("IndexArticle");
                 #endregion
             }
@@ -112,11 +117,14 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
             var Article = _DbContext.Articles.Where(A => A.Id == Id).SingleOrDefault();
             if (Article == null)
             {
+                #region (Article Not Found)
                 ErrorAlert("مقاله یافت نشد!");
 
                 return RedirectToAction("IndexArticle");
+                #endregion
             }
 
+            #region (Fill Fields)
             EditArticleViewModel EditArticleViewModel = new EditArticleViewModel()
             {
                 Id = Article.Id,
@@ -128,6 +136,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 Description = Article.Description,
                 ImageName = Article.ImageName,
             };
+            #endregion
 
             return View(EditArticleViewModel);
         }
@@ -141,12 +150,14 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
 
             if (Article == null)
             {
-
+                #region (Article Not Found)
                 ErrorAlert("مقاله یافت نشد!");
 
                 return RedirectToAction("IndexArticle");
+                #endregion
             }
 
+            #region (Image Null)
             if (EditArticleViewModel.Image == null)
             {
                 Article.Title = EditArticleViewModel.Title;
@@ -157,10 +168,11 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 Article.Description = EditArticleViewModel.Description;
                 Article.ImageAlt = EditArticleViewModel.ImageAlt;
             }
+            #endregion
 
             try
             {
-                // delete old image 
+                #region (Delete Old Image)
                 var imagePath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleUploadPath, Article.ImageName);
                 var imageThumbPath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleThumbUploadPath, Article.ImageName);
 
@@ -169,7 +181,9 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                     System.IO.File.Delete(imageThumbPath);
                     System.IO.File.Delete(imagePath);
                 }
+                #endregion
 
+                #region (Fill Fields)
                 Article.Title = EditArticleViewModel.Title;
                 Article.Slug = EditArticleViewModel.Slug;
                 Article.ShortDescription = EditArticleViewModel.ShortDescription;
@@ -177,23 +191,26 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 Article.MetaDescription = EditArticleViewModel.MetaDescription;
                 Article.Description = EditArticleViewModel.Description;
                 Article.ImageAlt = EditArticleViewModel.ImageAlt;
-
-
                 Article.ImageName = Guid.NewGuid().ToString("N") + Path.GetExtension(EditArticleViewModel.Image.FileName);
 
-                EditArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 200, 200, FilePath.ArticleThumbUploadPath);
+                #region (Create New Image)
+                EditArticleViewModel.Image.AddImageToServer(Article.ImageName, FilePath.ArticleUploadPath, 250, 250, FilePath.ArticleThumbUploadPath);
+                #endregion
+                #endregion
 
-
-
-                _DbContext.Update(Article);
+                #region (Save)
+                _DbContext.Articles.Update(Article);
 
                 _DbContext.SaveChanges();
+                #endregion
             }
             catch
             {
+                #region (Error)
                 ErrorAlert("عملیات با شکست مواجه شد!");
 
                 return RedirectToAction("IndexArticle");
+                #endregion
             }
 
             return RedirectToAction("IndexArticle");
@@ -203,42 +220,52 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
         #endregion
 
         #region (Delete)
+        #region (POST)
         [HttpPost("Admin/Article/Delete/{Id?}")]
         public IActionResult DeleteArticle(int Id)
         {
-            var article = _DbContext.Articles.Where(A => A.Id == Id).SingleOrDefault();
-            if (article == null)
+            var Article = _DbContext.Articles.Where(A => A.Id == Id).SingleOrDefault();
+
+            if (Article == null)
             {
+                #region (Article Not Found)
                 ErrorAlert("مقاله یافت نشد!");
 
                 return RedirectToAction("Index");
+                #endregion
             }
 
             try
             {
-                _DbContext.Articles.Remove(article);
-                _DbContext.SaveChanges();
+                #region (Save)
+                _DbContext.Articles.Remove(Article);
 
-                // delete  image 
-                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleUploadPath, article.ImageName);
-                var imageThumbPath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleThumbUploadPath, article.ImageName);
+                _DbContext.SaveChanges();
+                #endregion
+
+                #region (Delete Image)
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleUploadPath, Article.ImageName);
+                var imageThumbPath = Path.Combine(Directory.GetCurrentDirectory(), FilePath.ArticleThumbUploadPath, Article.ImageName);
 
                 if (System.IO.File.Exists(imagePath) && System.IO.File.Exists(imageThumbPath))
                 {
                     System.IO.File.Delete(imageThumbPath);
                     System.IO.File.Delete(imagePath);
                 }
+                #endregion
             }
             catch
             {
+                #region (Error)
                 ErrorAlert("عملیات با شکست مواجه شد!");
 
                 return RedirectToAction("IndexArticle");
-
+                #endregion
             }
 
             return RedirectToAction("IndexArticle");
         }
+        #endregion
         #endregion
 
         #region (Detail)
@@ -249,11 +276,14 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
             var Article = _DbContext.Articles.Where(A => A.Id == Id).SingleOrDefault();
             if (Article == null)
             {
+                #region (Article Not Found)
                 ErrorAlert("مقاله یافت نشد!");
 
                 return RedirectToAction("IndexArticle");
+                #endregion
             }
 
+            #region (Fill Fields)
             DetailArticleViewModel DetailArticleViewModel = new DetailArticleViewModel()
             {
                 Id = Article.Id,
@@ -266,6 +296,7 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
                 Visit = Article.Visit,
                 CratedDate = Article.CreatedDate,
             };
+            #endregion
 
             return View(DetailArticleViewModel);
         }
@@ -273,21 +304,21 @@ namespace RefrigeratorRepairs.UI.Areas.Admin.Controllers
         #endregion
 
         #region (Filter)
-        public ArticleFilterViewModel FilterArticleAsync(ArticleFilterViewModel filter)
+        public ArticleFilterViewModel FilterArticleAsync(ArticleFilterViewModel ArticleFilterViewModel)
         {
             var query = _DbContext.Articles.AsQueryable();
 
-            #region filter
-            if (!string.IsNullOrEmpty(filter.Title))
+            #region (Filter)
+            if (!string.IsNullOrEmpty(ArticleFilterViewModel.Title))
             {
-                query = query.Where(r => EF.Functions.Like(r.Title, $"%{filter.Title}%"));
+                query = query.Where(r => EF.Functions.Like(r.Title, $"%{ArticleFilterViewModel.Title}%"));
             }
             #endregion
 
-            #region  Paging
-            filter.Build(query.Count()).SetEntities(query);
+            #region  (Paging)
+            ArticleFilterViewModel.Build(query.Count()).SetEntities(query);
             #endregion
-            return filter;
+            return ArticleFilterViewModel;
         }
         #endregion
 

@@ -30,15 +30,16 @@ namespace RefrigeratorRepairs.UI.Controllers
         #region (Index)
         public IActionResult Index()
         {
-            var model = _DbContext.SiteSettings.FirstOrDefault();
+            var SiteSetting = _DbContext.SiteSettings.FirstOrDefault();
+
             SiteSettingDetailViewModel SiteSettingDetailViewModel = new SiteSettingDetailViewModel()
             {
-                TextInBackground = model.TextInBackground,
-                BackgrondImageName = model.Background,
-                Description = model.Description,
-                PhoneNumber = model.PhoneNumber,
-                AboutUs = model.AboutUs,
-                WhatWeDo = model.WhatWeDo,
+                TextInBackground = SiteSetting.TextInBackground,
+                BackgrondImageName = SiteSetting.Background,
+                Description = SiteSetting.Description,
+                PhoneNumber = SiteSetting.PhoneNumber,
+                AboutUs = SiteSetting.AboutUs,
+                WhatWeDo = SiteSetting.WhatWeDo,
             };
 
             return View(SiteSettingDetailViewModel);
@@ -46,19 +47,31 @@ namespace RefrigeratorRepairs.UI.Controllers
         #endregion
 
         #region (About Us)
+        #region (GET)
         [HttpGet("ContactUs")]
         public IActionResult ContactUs()
         {
-           var setting = _DbContext.SiteSettings.FirstOrDefault();
+            var Setting = _DbContext.SiteSettings.FirstOrDefault();
 
-            //if null return home and show alert
-            SiteSettingContactUs model = new SiteSettingContactUs()
+            if (Setting == null)
             {
-                AboutUs = setting.AboutUs,
-            };
+                #region (NotFound)
+                ErrorAlert("خطایی رخ داد!");
 
-            return View(model);
+                return Redirect("/");
+                #endregion
+            }
+
+            #region (Fill Fields)
+            SiteSettingContactUs SiteSettingContactUs = new SiteSettingContactUs()
+            {
+                AboutUs = Setting.AboutUs,
+            };
+            #endregion
+
+            return View(SiteSettingContactUs);
         }
+        #endregion
         #endregion
 
         #region (Articles)
@@ -71,24 +84,28 @@ namespace RefrigeratorRepairs.UI.Controllers
         #endregion
 
         #region (Single Page)
+        #region (GET)
         [HttpGet("Article/{Slug}")]
         public IActionResult SingleArticle(string Slug)
         {
-            var article = _DbContext.Articles.Where(A => A.Slug == Slug).SingleOrDefault();
+            var Article = _DbContext.Articles.Where(A => A.Slug == Slug).SingleOrDefault();
 
-            if (article == null)
+            if (Article == null)
             {
+                #region (Article Not Found)
                 ErrorAlert("مقاله یافت نشد!");
 
                 return RedirectToAction("Index");
+                #endregion
             }
 
-            article.Visit += 1;
+            Article.Visit += 1;
 
             ViewData["SiteUrl"] = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
 
-            return View(article);
+            return View(Article);
         }
+        #endregion
         #endregion
         #endregion
 
@@ -106,18 +123,21 @@ namespace RefrigeratorRepairs.UI.Controllers
         [HttpPost("Ad/Login")]
         public IActionResult Login(LoginViewModel LoginViewModel)
         {
-            var admin = _DbContext.Users.Where(U => U.UserName == LoginViewModel.UserName && U.Role == Role.Admin).SingleOrDefault();
+            var Admin = _DbContext.Users.Where(U => U.UserName == LoginViewModel.UserName && U.Role == Role.Admin).SingleOrDefault();
 
-            if (admin == null)
+            if (Admin == null)
             {
+                #region (Not Found)
                 ErrorAlert("کاربری یافت نشد!");
 
                 return Redirect("/");
+                #endregion
             }
 
+            #region (Authentication)
             var Claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,admin.FirstName),
+                new Claim(ClaimTypes.Name,Admin.FirstName),
             };
 
             var Identity = new ClaimsIdentity(Claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -128,8 +148,9 @@ namespace RefrigeratorRepairs.UI.Controllers
             };
 
             HttpContext.SignInAsync(Principal, Properties);
+            #endregion
 
-            return Redirect("/AdminPanel");
+            return Redirect("/AdminPannel");
         }
         #endregion
         #endregion
