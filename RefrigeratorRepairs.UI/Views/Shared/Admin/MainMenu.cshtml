@@ -18,15 +18,23 @@
     </div>
 
     <div class="shadow-bottom"></div>
+    
     <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
+            <li class="nav-item">
+                <a href="/"><i class="menu-livicon" data-icon="globe"></i><span class="menu-title" data-i18n="globe">صفحه اصلی </span></a>
+            </li>
+        </ul>
+
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
             <li class="nav-item @(selected == "Dashboard" ? "active" : null)">
                 <a href="/AdminPannel"><i class="menu-livicon" data-icon="dashboard"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
             </li>
         </ul>
+        
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
             <li class="nav-item @(selected == "Article_" ? "active" : null)">
-                <a href="javascript:void(0)"><i class="menu-livicon" data-icon="grid"></i><span class="menu-title" data-i18n="Dashboard">مدیریت مقالات</span></a>
+                <a href="javascript:void(0)"><i class="menu-livicon" data-icon="grid"></i><span class="menu-title" data-i18n="grid">مدیریت مقالات</span></a>
                 <ul class="menu-content">
                     <li class="@(selected == "Article_Index" ? "active" : null)">
                         <a href="/Admin/Articles"><i class="bx bx-left-arrow-alt"></i><span class="menu-item" data-i18n="Analytics">لیست مقالات</span></a>

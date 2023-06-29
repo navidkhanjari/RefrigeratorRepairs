@@ -2,6 +2,8 @@
 {
     public class SiteSettingContactUs
     {
+        #region (Fields)
         public string AboutUs { get; set; }
+        #endregion
     }
 }

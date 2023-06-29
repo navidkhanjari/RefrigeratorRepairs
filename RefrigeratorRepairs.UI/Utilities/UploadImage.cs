@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.IO;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Http;
-using RefrigeratorRepairs.UI.ViewModels.Articles;
 
 namespace RefrigeratorRepairs.UI.Utilities
 {
@@ -48,7 +45,7 @@ namespace RefrigeratorRepairs.UI.Utilities
                 }
             }
         }
-        public static string SaveFileAndReturnName(IFormFile file,string savepath)
+        public static string SaveFileAndReturnName(IFormFile file, string savepath)
         {
             if (file == null)
                 throw new Exception("File Is Null");
@@ -57,7 +54,7 @@ namespace RefrigeratorRepairs.UI.Utilities
 
 
             file.AddImageToServer(fileName, savepath, 200, 200);
-            
+
             return fileName;
         }
     }

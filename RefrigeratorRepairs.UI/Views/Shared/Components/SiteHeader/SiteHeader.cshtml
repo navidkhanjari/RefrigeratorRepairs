@@ -17,15 +17,13 @@
                 <li><a href="/" class="sub-menu-item">صفحه اصلی </a></li>
                 <li><a href="/Articles" class="sub-menu-item">مقالات</a></li>
                 <li><a href="/ContactUs" class="sub-menu-item">تماس با ما</a></li>
+
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li><a href="/AdminPannel" class="text-success sub-menu-item">پنل مدیریت</a></li>
-
                 }
+   
             </ul>
-
         </div>
-
-        
     </div>
 </header>

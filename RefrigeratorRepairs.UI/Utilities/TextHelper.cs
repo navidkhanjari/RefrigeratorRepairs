@@ -24,11 +24,6 @@ namespace RefrigeratorRepairs.UI.Utilities
                 .Replace(@"\", "")
                 .Replace("/", "");
         }
-        public static string ConvertHtmlToText(this string text)
-        {
-            return Regex.Replace(text, "<.*?>", " ")
-                .Replace(":&nbsp;", " ");
-        }
     }
    
 }

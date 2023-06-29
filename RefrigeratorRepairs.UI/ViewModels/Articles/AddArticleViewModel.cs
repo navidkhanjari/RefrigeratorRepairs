@@ -8,6 +8,7 @@ namespace RefrigeratorRepairs.UI.ViewModels.Articles
         #region (Fields)
         [Required(ErrorMessage = "وارد کردن این فیلد اجباری است!")]
         public IFormFile Image { get; set; }
+
         [Required(ErrorMessage = "وارد کردن این فیلد اجباری است!")]
         public string ImageAlt { get; set; }
 

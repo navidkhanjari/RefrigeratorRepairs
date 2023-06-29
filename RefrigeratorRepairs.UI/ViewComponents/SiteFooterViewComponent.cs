@@ -15,6 +15,7 @@ namespace RefrigeratorRepairs.UI.ViewComponents
         public IViewComponentResult Invoke()
         {
             var model = _DbContext.SiteSettings.FirstOrDefault();
+
             SiteSettingDetailViewModel SiteSettingDetailViewModel = new SiteSettingDetailViewModel()
             {
                 PhoneNumber = model.PhoneNumber,
